@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %} Transactions {% endblock title %}
+
+{% block content %}
+    <main>
+        <div class="container">
+            <h1 class="page-title">
+                <i class="fas fa-exchange-alt"></i>
+                <span class="en">Transactions</span>
+                <span class="uz" style="display: none;">Tranzaksiyalar</span>
+                <span class="ru" style="display: none;">Транзакции</span>
+            </h1>
+            
+            <!-- Filtrlar va qidiruv -->
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">
+                    <span class="en">All</span>
+                </button>
+                <button class="filter-btn" data-filter="day">
+                    <span class="en">Today</span>
+                </button>
+                <button class="filter-btn" data-filter="week">
+                    <span class="en">This Week</span>
+                </button>
+                <button class="filter-btn" data-filter="month">
+                    <span class="en">This Month</span>
+                </button>
+                <button class="filter-btn" data-filter="year">
+                    <span class="en">This Year</span>
+                </button>
+                <button class="filter-btn" data-filter="custom">
+                    <span class="en">Custom Range</span>
+                </button>
+            </div>
+            
+            <!-- Maxsus sana oralig'i -->
+            <div class="date-picker" id="customDateRange" style="display: none;">
+                <div>
+                    <label for="startDate" class="en">From</label>
+                    <input type="date" id="startDate">
+                </div>
+                <div>
+                    <label for="endDate" class="en">To</label>
+                    <input type="date" id="endDate">
+                </div>
+                <button class="btn btn-primary btn-sm" id="applyDateRange">
+                    <span class="en">Apply</span>
+                </button>
+            </div>
+            
+            <!-- Tranzaksiyalar jadvali -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title en">All Transactions</h3>
+                    <button class="btn btn-primary btn-sm" id="addTransactionBtn">
+                        <i class="fas fa-plus"></i>
+                        <span class="en">Add New</span>
+                    </button>
+                </div>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for transaction in transactions %}
+                            <tr>
+                                <td>{{ transaction.date }}</td>
+                                <td>{{ transaction.description }}</td>
+                                <td>{{ transaction.category.name }}</td>
+                                <td>{{ transaction.amount }}</td>
+                                <td>update va delete</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}

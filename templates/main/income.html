@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %} Income {% endblock title %}
+
+{% block content %}
+    <main>
+        <div class="container">
+            <h1 class="page-title">
+                <i class="fas fa-arrow-down text-success"></i>
+                <span class="en">Income</span>
+            </h1>
+            
+            <!-- Kirim statistikasi -->
+            <div class="income-stats">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title en">Total Income</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                    </div>
+                    <div class="card-value text-success" id="totalIncome">$0.00</div>
+                    <p class="card-text en">All time</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title en">This Month</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="monthlyIncome">$0.00</div>
+                    <p class="card-text en">Compared to last month</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title en">Primary Source</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="primarySource">-</div>
+                    <p class="card-text en">Salary</p>
+                </div>
+            </div>
+            
+            <!-- Manbalar bo'yicha taqsimot -->
+            <!-- <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title en">Income Sources</h3>
+                    <div class="card-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                </div>
+                <div class="income-source-chart">
+                    Diagramma uchun joy
+                    <canvas id="incomeSourceChart"></canvas>
+                </div>
+            </div> -->
+            
+            <!-- Kirimlar ro'yxati -->
+            <div class="card mt-3">
+                <!-- <div class="card-header">
+                    <h3 class="card-title en">Income Transactions</h3>
+                    <button class="btn btn-primary btn-sm" id="addIncomeBtn">
+                        <i class="fas fa-plus"></i>
+                        <span class="en">Add Income</span>
+                    </button>
+                </div> -->
+                
+                <div class="table-responsive">
+                    <table id="incomeTable">
+                        <thead>
+                            <tr>
+                                <th class="en">Date</th>
+                                <th class="en">Source</th>
+                                <th class="en">Description</th>
+                                <th class="en">Amount</th>
+                                <th class="en">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- JavaScript orqali to'ldiriladi -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}

@@ -1,0 +1,50 @@
+# Uzbek translations
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: uz\n"
+
+msgid "SignUp"
+msgstr "Ro‘yxatdan o‘tish"
+
+msgid "Login"
+msgstr "Kirish"
+
+msgid "Forgot password!"
+msgstr "Parolni unutdingizmi!"
+
+msgid "Home Page"
+msgstr "Bosh sahifa"
+
+msgid "Registration"
+msgstr "Ro‘yxatdan o‘tish"
+
+msgid "Logout"
+msgstr "Chiqish"
+
+msgid "Welcome to my site."
+msgstr "Saytimizga xush kelibsiz."
+
+msgid "This is the homepage."
+msgstr "Bu bosh sahifa."
+
+msgid "Signup here"
+msgstr "Bu yerda ro‘yxatdan o‘ting"
+
+msgid "Login here"
+msgstr "Bu yerda kirish"
+
+msgid "Change Password"
+msgstr "Parolni o'zgartirish"
+
+msgid "Change"
+msgstr "O'zgartirish"
+
+msgid "English"
+msgstr "Inglizcha"
+
+msgid "Uzbek"
+msgstr "O‘zbekcha"
+
+msgid "Russian"
+msgstr "Ruscha"

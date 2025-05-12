@@ -1,0 +1,50 @@
+# Russian translations
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ru\n"
+
+msgid "SignUp"
+msgstr "Регистрация"
+
+msgid "Login"
+msgstr "Войти"
+
+msgid "Forgot password!"
+msgstr "Забыли пароль!"
+
+msgid "Home Page"
+msgstr "Главная страница"
+
+msgid "Registration"
+msgstr "Регистрация"
+
+msgid "Logout"
+msgstr "Выйти"
+
+msgid "Welcome to my site."
+msgstr "Добро пожаловать на мой сайт."
+
+msgid "This is the homepage."
+msgstr "Это главная страница."
+
+msgid "Signup here"
+msgstr "Зарегистрируйтесь здесь"
+
+msgid "Login here"
+msgstr "Войти здесь"
+
+msgid "Change Password"
+msgstr "Сменить пароль"
+
+msgid "Change"
+msgstr "Изменить"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Uzbek"
+msgstr "Узбекский"
+
+msgid "Russian"
+msgstr "Русский"

@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %} Expenses {% endblock title %}
+
+{% block content %}
+    <main>
+        <div class="container">
+            <h1 class="page-title">
+                <i class="fas fa-arrow-up text-danger"></i>
+                <span class="en">Expenses</span>
+                <span class="uz" style="display: none;">Chiqimlar</span>
+                <span class="ru" style="display: none;">Расходы</span>
+            </h1>
+            
+            <!-- Chiqim statistikasi -->
+            <div class="expense-stats">
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title en">Total Expenses</h3>
+                        <h3 class="card-title uz" style="display: none;">Jami chiqim</h3>
+                        <h3 class="card-title ru" style="display: none;">Общий расход</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                    </div>
+                    <div class="card-value text-danger" id="totalExpenses">$0.00</div>
+                    <p class="card-text en">All time</p>
+                    <p class="card-text uz" style="display: none;">Hammasi</p>
+                    <p class="card-text ru" style="display: none;">За все время</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title en">This Month</h3>
+                        <h3 class="card-title uz" style="display: none;">Shu oy</h3>
+                        <h3 class="card-title ru" style="display: none;">Этот месяц</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="monthlyExpenses">$0.00</div>
+                    <p class="card-text en">Compared to last month</p>
+                    <p class="card-text uz" style="display: none;">O'tgan oyga nisbatan</p>
+                    <p class="card-text ru" style="display: none;">По сравнению с прошлым месяцем</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title en">Main Category</h3>
+                        <h3 class="card-title uz" style="display: none;">Asosiy toifa</h3>
+                        <h3 class="card-title ru" style="display: none;">Основная категория</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="mainCategory">-</div>
+                    <p class="card-text en">Food & Dining</p>
+                    <p class="card-text uz" style="display: none;">Oziq-ovqat</p>
+                    <p class="card-text ru" style="display: none;">Еда</p>
+                </div>
+            </div>
+            
+            <!-- Byudjet va taqsimot -->
+            <div class="grid">
+                <!-- <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title en">Monthly Budget</h3>
+                        <h3 class="card-title uz" style="display: none;">Oylik byudjet</h3>
+                        <h3 class="card-title ru" style="display: none;">Месячный бюджет</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="budgetStatus">$1,500 / $2,000</div>
+                    <div class="budget-progress">
+                        <div class="progress-bar">
+                            <div class="progress" id="budgetProgress"></div>
+                        </div>
+                        <p class="card-text en" id="budgetPercentage">75% spent</p>
+                        <p class="card-text uz" style="display: none;" id="budgetPercentage">75% sarflandi</p>
+                        <p class="card-text ru" style="display: none;" id="budgetPercentage">75% потрачено</p>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title en">Expense Categories</h3>
+                        <h3 class="card-title uz" style="display: none;">Chiqim toifalari</h3>
+                        <h3 class="card-title ru" style="display: none;">Категории расходов</h3>
+                        <div class="card-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                    <div class="expense-category-chart">
+                        Diagramma uchun joy 
+                        <canvas id="expenseCategoryChart"></canvas>
+                    </div>
+                </div> -->
+            </div>
+            
+            <!-- Chiqimlar ro'yxati -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3 class="card-title en">Expense Transactions</h3>
+                    <button class="btn btn-primary btn-sm" id="addExpenseBtn">
+                        <i class="fas fa-plus"></i>
+                        <span class="en">Add Expense</span>
+                    </button>
+                </div>
+                
+                <div class="table-responsive">
+                    <table id="expenseTable">
+                        <thead>
+                            <tr>
+                                <th class="en">Date</th>
+                                <th class="en">Category</th>
+                                <th class="en">Description</th>
+                                <th class="en">Amount</th>
+                                <th class="en">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- JavaScript orqali to'ldiriladi -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}

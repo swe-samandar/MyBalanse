@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+    <!-- Profile Content -->
+    <main>
+        <div class="container">
+            <div class="profile-container">
+                <!-- Profile Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="profile-card">
+                        <div class="profile-avatar" id="profileAvatar">
+                            <div class="user-avatar"><img src="{{ request.user.avatar.url }}" alt="User avatar" style="width: 160px; height: 160px;"></div>
+                            <div class="avatar-edit">
+                                <i class="fas fa-camera"></i>
+                                <span class="en">Change</span>
+                            </div>
+                        </div>
+                        <h2 class="profile-name" id="profileName">{{ request.user.username }}</h2>
+                        
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">$12,345</div>
+                                <div class="stat-label en">Balance</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">156</div>
+                                <div class="stat-label en">Transactions</div>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-actions">
+                            <button class="btn btn-primary btn-block" id="editProfileBtn">
+                                <i class="fas fa-edit"></i>
+                                <span class="en">Edit Profile</span>
+                            </button>
+                            <button class="btn btn-outline btn-block" id="changePasswordBtn">
+                                <i class="fas fa-key"></i>
+                                <span class="en">Change Password</span>
+                            </button>
+                            <button class="btn btn-outline btn-block" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="en">Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Main Content -->
+                <div class="profile-content">
+                    <!-- Personal Information Section -->
+                    <div class="profile-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-user-circle"></i>
+                                <span class="en">Personal Information</span>
+                            </h3>
+                            <button class="edit-btn" id="editPersonalInfoBtn">
+                                <i class="fas fa-edit"></i>
+                                <span class="en">Edit</span>
+                            </button>
+                        </div>
+                        
+                        <div class="profile-details" id="personalInfoView">
+                            <div class="detail-item">
+                                <div class="detail-label en">Full Name</div>
+                                <div class="detail-value" id="viewFullName">{{ request.user.get_full_name}}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label en">Email</div>
+                                <div class="detail-value" id="viewEmail">{{ request.user.address }}</div>
+                            </div>
+                        </div>
+                        
+                        <form id="personalInfoForm" style="display: none;">
+                            <div class="form-group">
+                                <label for="first_name" class="form-label en">First Name</label>
+                                <input type="text" id="first_name" class="form-control" value="{{ request.user.first_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name" class="form-label en">Last Name</label>
+                                <input type="text" id="last_name" class="form-control" value="{{ request.user.last_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="form-label en">Username</label>
+                                <input type="text" id="username" class="form-control" value="{{ request.user.username }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="address" class="form-label en">Address</label>
+                                <input type="address" id="address" class="form-control" value="{{ request.user.address }}">
+                            </div>                            
+                            <div class="form-group" style="display: flex; gap: 10px; margin-top: 20px;">
+                                <button type="button" class="btn btn-outline" id="cancelPersonalInfoEdit">
+                                    <span class="en">Cancel</span>
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="en">Save Changes</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Account Settings Section -->
+                    <div class="profile-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-cog"></i>
+                                <span class="en">Account Settings</span>
+                            </h3>
+                        </div>
+                        
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <div class="detail-label en">Language</div>
+                                <div class="detail-value" id="viewLanguage">English</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label en">Theme</div>
+                                <div class="detail-value" id="viewTheme">Light</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label en">Account Created</div>
+                                <div class="detail-value" id="viewAccountCreated">June 1, 2022</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label en">Last Login</div>
+                                <div class="detail-value" id="viewLastLogin">Today, 10:30 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Section -->
+                    <div class="profile-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-shield-alt"></i>
+                                <span class="en">Security</span>
+                            </h3>
+                        </div>
+                        
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <div class="detail-label en">Password</div>
+                                <div class="detail-value">••••••••</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label en">Two-Factor Authentication</div>
+                                <div class="detail-value">
+                                    <span class="text-danger en">Disabled</span>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label en">Active Sessions</div>
+                                <div class="detail-value">1 device</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; display: flex; gap: 10px;">
+                            <button class="btn btn-outline" id="changePasswordBtn2">
+                                <i class="fas fa-key"></i>
+                                <span class="en">Change Password</span>
+                            </button>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-shield-alt"></i>
+                                <span class="en">Enable 2FA</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="changePasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title en">Change Password</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="passwordForm">
+                    <div class="form-group">
+                        <label for="currentPassword" class="form-label en">Current Password</label>
+                        <input type="password" id="currentPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword" class="form-label en">New Password</label>
+                        <input type="password" id="newPassword" class="form-control" required>
+                        <small class="text-muted en">Minimum 8 characters</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label en">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline en">Cancel</button>
+                <button type="submit" form="passwordForm" class="btn btn-primary en">Change Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Avatar Modal -->
+    <div class="modal" id="changeAvatarModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title en">Change Profile Picture</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="avatar-upload">
+                    <div class="avatar-preview" id="avatarPreview">
+                        <div class="preview-text">JD</div>
+                    </div>
+                    <button class="btn btn-outline avatar-upload-btn">
+                        <i class="fas fa-upload"></i>
+                        <span class="en">Upload New Image</span>
+                        <input type="file" id="avatarInput" accept="image/*">
+                    </button>
+                    <small class="text-muted en">Recommended size: 300x300 px</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline en">Cancel</button>
+                <button type="button" class="btn btn-primary en">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title en">Logout Confirmation</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="en">Are you sure you want to logout?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline en">Cancel</button>
+                <button type="button" class="btn btn-danger en">Logout</button>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

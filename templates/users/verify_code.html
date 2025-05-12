@@ -1,0 +1,19 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Enter Verification Code" %}</title>
+</head>
+<body>
+    <h1>{% trans "Enter Verification Code" %}</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="code" placeholder="Verification code">
+            <button type="submit">{% trans "Submit" %}</button>
+        </form>
+    </div>
+</body>
+</html>
