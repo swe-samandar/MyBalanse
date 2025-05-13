@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils import timezone
+from main.models import CurrencyChoices
 
 # Create your models here.
 
@@ -25,6 +26,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=100, unique=True)
     address = models.CharField(max_length=150, unique=True)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default.png')
+    currency = models.TextField(max_length=4, choices=CurrencyChoices.choices, default=CurrencyChoices.UZS)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

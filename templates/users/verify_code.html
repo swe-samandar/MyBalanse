@@ -1,19 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
 {% load i18n %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "Enter Verification Code" %}</title>
-</head>
-<body>
-    <h1>{% trans "Enter Verification Code" %}</h1>
-    <div>
-        <form method="post">
+
+{% block title %}{% trans "Enter Verification Code" %}{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+<div class="auth-container">
+    <div class="auth-card">
+        <h1 class="auth-title">
+            <i class="fas fa-key"></i>
+            <span>{% trans "Enter Verification Code" %}</span>
+        </h1>
+
+        <form method="POST" class="auth-form">
             {% csrf_token %}
-            <input type="text" name="code" placeholder="Verification code">
-            <button type="submit">{% trans "Submit" %}</button>
+
+            {% if error %}
+                <div class="alert alert-danger">
+                    <strong>{% trans "Error" %}:</strong> {{ error }}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="code" class="form-label">{% trans "Verification Code" %}</label>
+                <input type="text" id="code" name="code" class="form-control" required placeholder="{% trans 'Enter the code sent to your email' %}">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                {% trans "Submit" %}
+            </button>
         </form>
     </div>
-</body>
-</html>
+</div>
+{% endblock content %}

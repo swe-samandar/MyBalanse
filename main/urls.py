@@ -13,6 +13,13 @@ from .views import (
     DeleteAccountView,
     DeleteIncomeView,
     DeleteExpenseView,
+    CategoriesView,
+    NewIncomeCategoryView,
+    NewExpenseCategoryView,
+    UpdateIncomeCategoryView,
+    UpdateExpenseCategoryView,
+    DeleteIncomeCategoryView,
+    DeleteExpenseCategoryView,
 )
 
 app_name = 'main'
@@ -31,4 +38,11 @@ urlpatterns = [
     path('<int:account_id>delete-account', DeleteAccountView.as_view(), name='delete_account'),
     path('<int:income_id>/delete-income', DeleteIncomeView.as_view(), name='delete_income'),
     path('<int:expense_id>/delete-expense', DeleteExpenseView.as_view(), name='delete_expense'),
+    path('categories', CategoriesView.as_view(), name='categories'),
+    path('new-category-income', NewIncomeCategoryView.as_view(), name='new_income_category'),
+    path('new-category-expense', NewExpenseCategoryView.as_view(), name='new_expense_category'),
+    path('<int:income_ctg_id>/update-category-income', UpdateIncomeCategoryView.as_view(), name='update_income_category'),
+    path('<int:expense_ctg_id>/update-category-expense', UpdateExpenseCategoryView.as_view(), name='update_expense_category'),
+    path('<int:income_ctg_id>/delete-category-income', DeleteIncomeCategoryView.as_view(), name='delete_income_category'),
+    path('<int:expense_ctg_id>/delete-category-expense', DeleteExpenseCategoryView.as_view(), name='delete_expense_category'),
 ]

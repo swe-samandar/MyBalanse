@@ -43,20 +43,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
     'users.apps.UsersConfig',
-    'crispy_forms',
-    'crispy_bootstrap5',
-    'rest_framework'
+    'rest_framework',
+    # 'rest_framework.authtoken',
+    # 'drf_yasg',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -156,6 +156,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 CSRF_TRUSTED_ORIGINS = [
     "https://" + host for host in ALLOWED_HOSTS if not host.startswith("http")
 ]
+
+APP_NAME = 'MyBalanse API'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

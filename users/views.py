@@ -3,8 +3,9 @@ from django.views import View
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
-from .forms import UserRegistrationForm, ChangePasswordForm, ProfileUpdateForm
+from .forms import UserRegistrationForm, ChangePasswordForm, ProfileUpdateForm, AvatarUpdateForm
 from .models import CustomUser, OTP
+from  main.models import Account, Income, Expense
 from django.contrib.auth import update_session_auth_hash
 from services import send_code
 import random
@@ -53,7 +54,7 @@ class LoginView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect('main:login')
+        return redirect('users:login')
 
 
 class ProfileView(LoginRequiredMixin, View):
@@ -61,16 +62,46 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user
-        form = ProfileUpdateForm(instance=user)
-        return render(request, 'users/profile.html', {'form': form})
+        avatar_form = AvatarUpdateForm(instance=user)
+        incomes = Income.objects.filter(user=user)
+        expenses = Expense.objects.filter(user=user)
+        accounts = Account.objects.filter(user=user)
+        total_balance = sum(account.amount for account in accounts)
+        transactions_count = incomes.count() + expenses.count()
 
+        context = {
+            'avatar_form': avatar_form,
+            'total_balance': total_balance,
+            'transactions_count': transactions_count,
+        }
+        return render(request, 'users/profile.html', context)
+
+    def post(self, request):
+        user = request.user
+        avatar_form = AvatarUpdateForm(request.POST, request.FILES, instance=user)
+        if avatar_form.is_valid():
+            avatar_form.save()
+            return redirect('users:profile')
+        return render(request, 'users/profile.html', {'avatar_form': avatar_form})
+
+
+
+class ProfileUpdateView(LoginRequiredMixin, View):
+    login_url = 'users:login'
+    next = 'users:update_profile'
+
+    def get(self, request):
+        user = request.user
+        form = ProfileUpdateForm(instance=user)
+        return render(request, 'users/update_profile.html', {'form': form})
+    
     def post(self, request):
         user = request.user
         form = ProfileUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             return redirect('users:profile')
-        return render(request, 'users/profile.html', {'form': form})
+        return render(request, 'users/update_profile.html', {'form': form})
     
 
 class ChangePasswordView(LoginRequiredMixin, View):
@@ -87,7 +118,7 @@ class ChangePasswordView(LoginRequiredMixin, View):
             user.set_password(form.cleaned_data['new_password'])
             user.save()
             update_session_auth_hash(request, user)
-            return redirect('users:settings')
+            return redirect('users:profile')
         return render(request, 'users/change_password.html', {'form': form})
     
 
@@ -195,3 +226,6 @@ class SetNewPasswordView(View):
 class AvatarUpdateView(LoginRequiredMixin, View):
     login_url = 'users:login'
     next = 'users:avatar_update'
+
+    def get(self, request):
+        return render(request, '')

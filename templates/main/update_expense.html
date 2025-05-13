@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load form_tags %}
 
-{% block title %} {% trans "New Account" %} {% endblock title %}
+{% block title %}{% trans "Edit Expense" %}{% endblock title %}
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
@@ -11,8 +11,8 @@
 <div class="auth-container">
     <div class="auth-card">
         <h1 class="auth-title">
-            <i class="fas fa-plus-circle"></i>
-            <span>{% trans "Create New Account" %}</span>
+            <i class="fas fa-edit"></i>
+            <span>{% trans "Edit Expense" %}</span>
         </h1>
 
         <form method="POST" enctype="multipart/form-data" class="auth-form">
@@ -25,17 +25,17 @@
             {% endif %}
 
             <div class="form-group">
-                {{ form.type.label_tag }}
-                {{ form.type|add_class:"form-control" }}
-                {% for error in form.type.errors %}
+                {{ form.category.label_tag }}
+                {{ form.category|add_class:"form-control" }}
+                {% for error in form.category.errors %}
                     <small class="text-danger">{{ error }}</small>
                 {% endfor %}
             </div>
 
             <div class="form-group">
-                {{ form.currency_type.label_tag }}
-                {{ form.currency_type|add_class:"form-control" }}
-                {% for error in form.currency_type.errors %}
+                {{ form.account_type.label_tag }}
+                {{ form.account_type|add_class:"form-control" }}
+                {% for error in form.account_type.errors %}
                     <small class="text-danger">{{ error }}</small>
                 {% endfor %}
             </div>
@@ -49,6 +49,14 @@
             </div>
 
             <div class="form-group">
+                {{ form.date.label_tag }}
+                {{ form.date|add_class:"form-control" }}
+                {% for error in form.date.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
                 {{ form.description.label_tag }}
                 {{ form.description|add_class:"form-control" }}
                 {% for error in form.description.errors %}
@@ -57,12 +65,12 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">
-                {% trans "Create Account" %}
+                {% trans "Update Expense" %}
             </button>
         </form>
 
         <div class="auth-footer">
-            <p><a href="{% url 'main:transactions' %}">{% trans "Back to Transactions" %}</a></p>
+            <p><a href="{% url 'main:expenses' %}">{% trans "Back to Expenses" %}</a></p>
         </div>
     </div>
 </div>

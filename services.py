@@ -2,6 +2,7 @@ from users.models import CustomUser
 from config import settings
 from django.core.mail import send_mail
 import re
+import requests
 
 # O‘zbekiston telefon raqamlari uchun regex (998 bilan boshlanadi)
 REGEX_PHONE = r"^998([235789]{2}|(9[013-57-9]))\d{7}$"
@@ -30,3 +31,14 @@ def send_code(code, address):
             print(f"{code} is sended to {address}")
         else:
             print('Invalid address')
+
+
+def get_currency():
+    response = requests.get('https://cbu.uz/oz/arkhiv-kursov-valyut/json/')
+    data = response.json()
+    lst = []
+    for i, currency in enumerate(data):
+        lst.append(currency)
+        if i == 2:
+            break
+    return lst
