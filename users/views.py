@@ -9,6 +9,7 @@ from  main.models import Account, Income, Expense
 from django.contrib.auth import update_session_auth_hash
 from services import send_code
 import random
+import uuid
 
 # Create your views here.
 
@@ -22,7 +23,8 @@ class SignUpView(View):
         if form.is_valid():
             address = form.cleaned_data['address']
             code = f"{random.randint(100000, 999999)}"
-            OTP.objects.create(address=address, code=code)
+            key = code[:3] + str(uuid.uuid4()) + code[3:]
+            OTP.objects.create(address=address, key=key)
             send_code(code, address)
 
             request.session['form_data'] = form.cleaned_data
@@ -62,7 +64,6 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user
-        avatar_form = AvatarUpdateForm(instance=user)
         incomes = Income.objects.filter(user=user)
         expenses = Expense.objects.filter(user=user)
         accounts = Account.objects.filter(user=user)
@@ -70,20 +71,10 @@ class ProfileView(LoginRequiredMixin, View):
         transactions_count = incomes.count() + expenses.count()
 
         context = {
-            'avatar_form': avatar_form,
             'total_balance': total_balance,
             'transactions_count': transactions_count,
         }
         return render(request, 'users/profile.html', context)
-
-    def post(self, request):
-        user = request.user
-        avatar_form = AvatarUpdateForm(request.POST, request.FILES, instance=user)
-        if avatar_form.is_valid():
-            avatar_form.save()
-            return redirect('users:profile')
-        return render(request, 'users/profile.html', {'avatar_form': avatar_form})
-
 
 
 class ProfileUpdateView(LoginRequiredMixin, View):
@@ -137,7 +128,8 @@ class ResetPasswordRequestView(View):
             return render(request, 'users/reset_password.html', {'error': "Bunday foydalanuvchi yo'q"})
 
         code = f"{random.randint(100000, 999999)}"
-        OTP.objects.create(address=address, code=code)
+        key = code[:3] + str(uuid.uuid4()) + code[3:]
+        OTP.objects.create(address=address, key=key)
         send_code(code, address)
 
         request.session['reset_address'] = address
@@ -160,7 +152,7 @@ class VerifyCodeView(View):
             if not form_data:
                 return render(request, 'users/verify_code.html', {'error': "Ma'lumotlar topilmadi"})
             otp = OTP.objects.filter(address=address, is_used=False, is_expired=False).last()
-            if not otp or otp.code != code_input:
+            if not otp or otp.key[:3] + otp.key[-3:] != code_input:
                 if otp:
                     otp.tried += 1
                     otp.save()
@@ -181,13 +173,12 @@ class VerifyCodeView(View):
 
         try:
             otp = OTP.objects.filter(address=address, is_used=False, is_expired=False).last()
-            if not otp or otp.code != code_input:
+            if not otp or otp.key[:3] + otp.key[-3:] != code_input:
                 return render(request, 'users/verify_code.html', {'error': "Kod noto'g'ri"})
             
             if otp.check_expired():
                 return render(request, 'users/verify_code.html', {'error': 'Kod muddati tugagan'})
 
-            print(otp.code)
             otp.is_used = True
             otp.save()
             request.session['reset_verified'] = True
@@ -221,11 +212,3 @@ class SetNewPasswordView(View):
         request.session.flush()
 
         return redirect('users:login')
-    
-
-class AvatarUpdateView(LoginRequiredMixin, View):
-    login_url = 'users:login'
-    next = 'users:avatar_update'
-
-    def get(self, request):
-        return render(request, '')

@@ -38,10 +38,22 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
+    @property
+    def format(self):
+        return {
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'username': self.username,
+            'address': self.address,
+            'avatar': self.avatar.url,
+            'currency': self.currency
+            }
+
 
 class OTP(models.Model):
     address = models.CharField(max_length=150)
-    code = models.CharField(max_length=6)
+    key = models.CharField(max_length=150)
     is_expired = models.BooleanField(default=False)
     is_used = models.BooleanField(default=False)
     tried = models.IntegerField(default=0)

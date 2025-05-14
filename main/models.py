@@ -15,7 +15,6 @@ class Account(models.Model):
     currency_type = models.TextField(max_length=4, choices=CurrencyChoices.choices, default=CurrencyChoices.UZS)
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     description = models.CharField(max_length=1024, blank=True, null=True)
-    image = models.ImageField(upload_to='accounts/', default='accounts/default.png')
 
     def __str__(self):
         return self.type
@@ -77,7 +76,6 @@ class Expense(models.Model):
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     date = models.DateField()
     description = models.CharField(max_length=1024, blank=True, null=True)
-
 
     class Meta:
         ordering = ['-date']

@@ -45,7 +45,6 @@ class TransactionsView(LoginRequiredMixin, View): # Hammasi OK
         filt = request.GET.get('filter')
         start = request.GET.get('start')
         end = request.GET.get('end')
-        currency = get_currency()
 
         accounts = Account.objects.filter(user=request.user)
         incomes = Income.objects.filter(user=request.user)
@@ -79,6 +78,7 @@ class TransactionsView(LoginRequiredMixin, View): # Hammasi OK
             except ValueError:
                 return render(request, 'main/transactions.html', {
                     'transactions': [],
+                    'accounts': accounts,
                     'error': 'Invalid date format.'
                 })
 
@@ -460,8 +460,8 @@ class DeleteExpenseCategoryView(LoginRequiredMixin, View): # Hammasi OK
         expense_category = get_object_or_404(ExpenseCategory, id=expense_ctg_id)
         return render(request, 'main/delete_expense_category.html', {'income_category': expense_category})
     
-    def post(self, request, income_ctg_id):
-        expense_category = get_object_or_404(ExpenseCategory, id=expense_category)
+    def post(self, request, expense_ctg_id):
+        expense_category = get_object_or_404(ExpenseCategory, id=expense_ctg_id)
         expense_category.delete()
         return redirect('main:categories')
 
